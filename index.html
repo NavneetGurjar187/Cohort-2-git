@@ -2,37 +2,64 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Add User</title>
-  <link rel="stylesheet" href="index.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Manager App</title>
+
+  <!-- Google Font (optional but classy) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="index.css">
 </head>
+
 <body>
 
-  
-  <form class="form-container">
-  <label>Name</label>
-  <input id="name" type="text" />
+  <!-- APP WRAPPER -->
+  <div class="app">
 
-  <label>Role</label>
-  <input id="role" type="text" />
+    <!-- HEADER -->
+    <header class="app-header">
+      <h1>User Manager</h1>
+      <p>Add, view and manage users easily</p>
+    </header>
 
-  <label>Bio</label>
-  <textarea id="bio"></textarea>
+    <!-- FORM -->
+    <form class="form-container">
+      <h2>Add New User</h2>
 
-  <label>Photo URL</label>
-  <input id="photo" type="text" />
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" placeholder="Enter full name" />
+      </div>
 
+      <div class="form-group">
+        <label for="role">Role</label>
+        <input type="text" id="role" placeholder="e.g. Frontend Developer" />
+      </div>
 
-  <button id="Photo" type="submit">Submit</button>
-</form>
+      <div class="form-group">
+        <label for="bio">Bio</label>
+        <textarea id="bio" placeholder="Short description about user"></textarea>
+      </div>
 
+      <div class="form-group">
+        <label for="photo">Photo URL</label>
+        <input type="text" id="photo" placeholder="Paste image URL" />
+      </div>
 
-  
-  <div class="card-container">
+      <button type="submit">➕ Add User</button>
+    </form>
 
-    
+    <!-- USERS -->
+    <section class="users-section">
+      <h2>Users List</h2>
+      <div class="card-container"></div>
+    </section>
 
   </div>
+
+  <!-- JS -->
   <script src="index.js"></script>
 </body>
 </html>

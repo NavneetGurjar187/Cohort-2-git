@@ -1,107 +1,88 @@
-let form = document.querySelector(".form-container");
-let userName = document.querySelector("#name");
-let role = document.querySelector("#role");
-let bio = document.querySelector("#bio");
-let photo = document.querySelector("#photo");
+"use strict";
 
+/* =======================
+   DOM SELECTORS
+======================= */
+const form = document.querySelector(".form-container");
+const cardContainer = document.querySelector(".card-container");
 
-const userManager = {
-  users : [],
-  init : function(){
-    form.addEventListener("submit" , this.submitForm.bind(this));
-  },
-  submitForm : function(e){
-    e.preventDefault();
-    this.addUser();
+const nameInput = document.querySelector("#name");
+const roleInput = document.querySelector("#role");
+const bioInput = document.querySelector("#bio");
+const photoInput = document.querySelector("#photo");
 
-  },
-  addUser : function () {
-    this.users.push({
-      userName : userName.value,
-      role : role.value, 
-      bio : bio.value,
-      photo : photo.value,
-    });
+/* =======================
+   DATA
+======================= */
+let users = [];
 
-    form.reset();
-    this.renderUI();
-    this.renderUI();
-  },
-  renderUI: function () {
-  let cardContainer = document.querySelector(".card-container");
+/* =======================
+   EVENTS
+======================= */
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
 
-  // purane cards clear karo (important)
-  cardContainer.innerHTML = "";
+  const user = createUserObject();
+  users.push(user);
 
-  this.users.forEach(function (user) {
+  renderUsers();
+  form.reset();
+});
 
-    let card = document.createElement("div");
-    card.classList.add("card");
+/* =======================
+   FUNCTIONS
+======================= */
 
-    let img = document.createElement("img");
-    img.src = user.photo;
-    img.alt = user.userName;
-
-    let h3 = document.createElement("h3");
-    h3.textContent = user.userName;
-
-    let roleP = document.createElement("p");
-    roleP.classList.add("role");
-    roleP.textContent = user.role;
-
-    let bioP = document.createElement("p");
-    bioP.textContent = user.bio;
-
-    card.appendChild(img);
-    card.appendChild(h3);
-    card.appendChild(roleP);
-    card.appendChild(bioP);
-
-    cardContainer.appendChild(card);
-  });
-},
-
-renderUI: function () {
-  let cardContainer = document.querySelector(".card-container");
-  cardContainer.innerHTML = "";
-
-  this.users.forEach((user, index) => {
-    let card = document.createElement("div");
-    card.classList.add("card");
-
-    let img = document.createElement("img");
-    img.src = user.photo;
-
-    let h3 = document.createElement("h3");
-    h3.textContent = user.userName;
-
-    let roleP = document.createElement("p");
-    roleP.classList.add("role");
-    roleP.textContent = user.role;
-
-    let bioP = document.createElement("p");
-    bioP.textContent = user.bio;
-
-    let delBtn = document.createElement("button");
-    delBtn.textContent = "Delete";
-
-    // 🔥 IMPORTANT: arrow function
-    delBtn.addEventListener("click", () => {
-      this.removeUser(index); // ✅ correct case
-    });
-
-    card.append(img, h3, roleP, bioP, delBtn);
-    cardContainer.appendChild(card);
-  });
-},
-
-removeUser: function (index) {
-  this.users.splice(index, 1);
-  this.renderUI();
+// 1️⃣ Create user object
+function createUserObject() {
+  return {
+    username: nameInput.value.trim(),
+    role: roleInput.value.trim(),
+    bio: bioInput.value.trim(),
+    photo: photoInput.value.trim()
+  };
 }
 
-
-
+// 2️⃣ Remove user
+function removeUser(index) {
+  users.splice(index, 1);
+  renderUsers();
 }
 
-userManager.init();
+// 3️⃣ Render all users
+function renderUsers() {
+  cardContainer.innerHTML = "";
+
+  users.forEach((user, index) => {
+    const card = createUserCard(user, index);
+    cardContainer.appendChild(card);
+  });
+}
+
+// 4️⃣ Create single card
+function createUserCard({ username, role, bio, photo }, index) {
+  const card = document.createElement("div");
+  card.className = "card";
+
+  const img = document.createElement("img");
+  img.src = photo || "https://via.placeholder.com/150";
+  img.alt = username;
+
+  const nameEl = document.createElement("h3");
+  nameEl.textContent = username;
+
+  const roleEl = document.createElement("p");
+  roleEl.className = "role";
+  roleEl.textContent = role;
+
+  const bioEl = document.createElement("p");
+  bioEl.className = "bio";
+  bioEl.textContent = bio;
+
+  const deleteBtn = document.createElement("button");
+  deleteBtn.textContent = "Delete";
+  deleteBtn.addEventListener("click", () => removeUser(index));
+
+  card.append(img, nameEl, roleEl, bioEl, deleteBtn);
+  return card;
+}
