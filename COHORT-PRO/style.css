@@ -1,0 +1,52 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+main {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  gap: 10px;
+}
+main section {
+  height: 100%;
+  flex-grow: 1;
+  background-color: rgb(86, 7, 7);
+  transition: all 0.9s linear;
+  cursor: pointer;
+}
+main section:hover {
+  flex-grow: 3;
+}
+main section:nth-child(1) {
+  background-image: url(https://i.pinimg.com/736x/f2/cf/e4/f2cfe4e02dfa73651f9b4e0ec5d235c8.jpg);
+  background-size: cover;
+  background-position: center;
+}
+main section:nth-child(2) {
+  background-image: url(./e589346cf2d2c5b56154dbbc40e7c4e5.jpg);
+  background-size: cover;
+  background-position: center;
+}
+main section:nth-child(3) {
+  background-image: url(./hulk.jpg);
+  background-size: cover;
+  background-position: center;
+}
+main section:nth-child(4) {
+  background-image: url(./enemy-1.jpg);
+  background-size: cover;
+  background-position: center;
+}
+main section:nth-child(5) {
+  background-image: url(./enemy-2.jpg);
+  background-size: cover;
+  background-position: center;
+}/*# sourceMappingURL=style.css.map */

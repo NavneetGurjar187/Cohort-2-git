@@ -1,88 +1,34 @@
-"use strict";
+let input = document.querySelector("input");
+let btn = document.querySelector("button");
+let tasklist = document.querySelector(".task-list");
 
-/* =======================
-   DOM SELECTORS
-======================= */
-const form = document.querySelector(".form-container");
-const cardContainer = document.querySelector(".card-container");
+btn.addEventListener("click" , function(){
 
-const nameInput = document.querySelector("#name");
-const roleInput = document.querySelector("#role");
-const bioInput = document.querySelector("#bio");
-const photoInput = document.querySelector("#photo");
+  if(input.value.trim() === ""){
+    alert("please enter name");
+    return;
+  }
+  
+  let li = document.createElement("li");
 
-/* =======================
-   DATA
-======================= */
-let users = [];
+  let span = document.createElement("span");
+  span.textContent = input.value;
 
-/* =======================
-   EVENTS
-======================= */
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  const user = createUserObject();
-  users.push(user);
-
-  renderUsers();
-  form.reset();
-});
-
-/* =======================
-   FUNCTIONS
-======================= */
-
-// 1️⃣ Create user object
-function createUserObject() {
-  return {
-    username: nameInput.value.trim(),
-    role: roleInput.value.trim(),
-    bio: bioInput.value.trim(),
-    photo: photoInput.value.trim()
-  };
-}
-
-// 2️⃣ Remove user
-function removeUser(index) {
-  users.splice(index, 1);
-  renderUsers();
-}
-
-// 3️⃣ Render all users
-function renderUsers() {
-  cardContainer.innerHTML = "";
-
-  users.forEach((user, index) => {
-    const card = createUserCard(user, index);
-    cardContainer.appendChild(card);
+  span.addEventListener("click" , function(){
+    span.classList.toggle("completed");
   });
-}
 
-// 4️⃣ Create single card
-function createUserCard({ username, role, bio, photo }, index) {
-  const card = document.createElement("div");
-  card.className = "card";
+  let delBtn = document.createElement("button");
+  delBtn.textContent = "❌";
 
-  const img = document.createElement("img");
-  img.src = photo || "https://via.placeholder.com/150";
-  img.alt = username;
+  delBtn.addEventListener("click" , function(e){
+    e.stopPropagation();
+    li.remove();
+  });
 
-  const nameEl = document.createElement("h3");
-  nameEl.textContent = username;
+  li.appendChild(span)
+  li.appendChild(delBtn);
+  tasklist.appendChild(li);
 
-  const roleEl = document.createElement("p");
-  roleEl.className = "role";
-  roleEl.textContent = role;
-
-  const bioEl = document.createElement("p");
-  bioEl.className = "bio";
-  bioEl.textContent = bio;
-
-  const deleteBtn = document.createElement("button");
-  deleteBtn.textContent = "Delete";
-  deleteBtn.addEventListener("click", () => removeUser(index));
-
-  card.append(img, nameEl, roleEl, bioEl, deleteBtn);
-  return card;
-}
+  input.value = "";  
+})

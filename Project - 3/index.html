@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expense Tracker</title>
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+
+  <div class="app">
+
+    <h1>💰 Expense Tracker</h1>
+
+    <!-- FORM -->
+    <form class="expense-form">
+      <input type="text" id="title" placeholder="Expense name (e.g. Tea)" required />
+      <input type="number" id="amount" placeholder="Amount ₹" required />
+      <input type="date" id="date" required />
+      <button type="submit">Add Expense</button>
+    </form>
+
+    <!-- TOTAL -->
+    <div class="total">
+      Total: ₹ <span id="totalAmount">0</span>
+    </div>
+
+    <!-- LIST -->
+    <ul class="expense-list">
+      <!-- JS se items aayenge -->
+    </ul>
+
+  </div>
+
+  <!-- JS baad me -->
+<script src="index.js"></script>
+</body>
+</html>
